@@ -1,0 +1,87 @@
+@import '_normalize'
+@import '_mixins'
+
+// variables
+
+$base-font: "Helvetica Neue", Helvetica, sans-serif
+
+$fill-darkest-grey: #1d1d1d
+$fill-dark-grey: #3a3a3a
+$fill-grey: #666666
+
+$text-grey: #878787
+$text-light-grey: #c1c1c1
+$text-lightest-grey: #fff
+
+// reset
+
+@media screen and (max-device-width: 480px)
+  html
+    -webkit-text-size-adjust: 100%
+    -ms-text-size-adjust: 100%
+
+*
+  +prefix-property(box-sizing, border-box)
+
+ul
+  padding: 0
+
+li
+  list-style-type: none
+
+// base
+
+html, body
+  background-color: $fill-darkest-grey
+  color: $text-light-grey
+
+body
+  font: 400 100%/1.65 $base-font
+  text-rendering: optimizeLegibility
+
+img
+  max-width: 100%
+
+a
+  img
+    vertical-align: top
+
+// header
+
+.hero-section
+  position: relative
+  overflow: hidden
+  height: 0
+  padding-bottom: 50%
+
+  background: url(/assets/blur-bg.jpg) no-repeat
+  background-position: 50% 50%
+
+  .is-scaled &
+    background-size: cover
+
+.device
+  position: absolute
+  z-index: 1
+  top: 2.5%
+  left: 0
+  right: 0
+  bottom: -25%
+  max-height: 840px
+  background: url(/assets/iphone-screen.png) no-repeat
+  background-size: contain
+  background-position: 50% 50%
+
+.device-bg
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background: url(/assets/blur-bg-blurred.jpg) no-repeat
+  background-position: 50% 50%
+  background-clip: content-box
+  padding: 10% 37.5% 0
+
+  .is-scaled &
+    background-size: cover

@@ -1,0 +1,22 @@
+{% capture content %}
+<section id='hero' class='hero-section'>
+  <div class='device'></div>
+  <div class='device-bg'></div>
+</section>
+
+<script>
+  document.body.onclick = function(e) {
+    if (this.className.search('is-scaled') == -1)
+    {
+      this.className += ' is-scaled';
+    }
+    else
+    {
+      this.className = this.className.replace(' is-scaled', '');
+    }
+  };
+</script>
+
+{% endcapture %}
+
+{% include 'layouts/default' %}
