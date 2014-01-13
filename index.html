@@ -35,12 +35,12 @@
   var index = 1;
   var selectedItem;
 
-  setInterval(function(){
-    if (index < 3) {
-      index++;
-    } else {
-      index = 1;
-    }
+  // setInterval(function(){
+  //   if (index < 3) {
+  //     index++;
+  //   } else {
+  //     index = 1;
+  //   }
 
     [].forEach.call(doc.querySelectorAll('.list'), function (list) {
       selectedItem = list.querySelector('li.is-selected');
@@ -51,7 +51,7 @@
     });
 
     deviceForegroundList.className = 'device-foreground-list list is-selected-' + index;
-  }, 3000);
+  // }, 3000);
 </script>
 
 {% endcapture %}
