@@ -54,6 +54,8 @@ a
 
 .main-header
   +clearfix
+  max-width: 75em
+  margin: 0 auto
   padding: 2em
 
   .logo-wrapper
@@ -88,10 +90,9 @@ a
 .hero-section
   position: relative
   overflow: hidden
-  max-width: 1536px
-  margin: 0 auto
   height: 0
   padding-bottom: 100%
+  background-color: #000
 
 .list
   margin: 0
@@ -238,8 +239,6 @@ a
 
 @media screen and (min-width: 710px)
   .main-header
-    .logo
-
     .logotype
       float: left
       top: 1.25rem
@@ -250,6 +249,12 @@ a
       top: 1.75rem
       left: 0
       font-size: 1.375rem
+
+  .background-list
+    position: relative
+    max-width: 1536px
+    height: 100%
+    margin: 0 auto
 
   .hero-section
     height: 710px
