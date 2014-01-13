@@ -4,6 +4,7 @@
 // variables
 
 $base-font: "Helvetica Neue", Helvetica, sans-serif
+$header-font: "futura-pt", "Helvetica Neue", Helvetica, sans-serif
 
 $fill-darkest-grey: #1d1d1d
 $fill-dark-grey: #3a3a3a
@@ -46,42 +47,169 @@ a
   img
     vertical-align: top
 
+.wf-loading .webfont
+  visibility: hidden
+
 // header
+
+.main-header
+  padding: 2em
+
+  .logo-wrapper
+    margin: 0
+
+  .logo
+    display: block
+    height: 45px
+    margin: 0.35em auto
+    background: url(/assets/logo.png) no-repeat
+    background-position: 50% 0
+    background-size: contain
+
+  .logotype
+    display: block
+    width: 90px
+    height: 20px
+    margin: 0 auto
+    background: url(/assets/logotype.svg) no-repeat
+    background-position: 50% 0
+    background-size: contain
+    text-indent: -9999px
+
+  > .tagline
+    margin: 1.5em 0 0
+    font-family: $header-font
+    font-size: 1em
+    font-weight: 300
+    text-align: center
 
 .hero-section
   position: relative
   overflow: hidden
   height: 0
-  padding-bottom: 50%
+  padding-bottom: 100%
 
-  background: url(/assets/blur-bg.jpg) no-repeat
-  background-position: 50% 50%
+.list
+  margin: 0
 
-  .is-scaled &
-    background-size: cover
+.hero-shadow
+  position: absolute
+  z-index: 1
+  left: 0
+  top: 0
+  width: 100%
+  height: 100%
+  background: url(/assets/hero-shadow.png) repeat-x
+  background-position: 0 100%
+  background-size: 100% 25%
+
+.device-list
+  position: absolute
+  width: 100%
+  height: 100%
+  top: 5%
+
+  > li
+    +transition(opacity 0.75s $easeInOutSine)
+    +prefix-property(opacity, 0)
+
+    &:first-child,
+    &.is-selected
+      +prefix-property(opacity, 1)
 
 .device
   position: absolute
-  z-index: 1
-  top: 2.5%
+  top: 0
   left: 0
   right: 0
-  bottom: -25%
-  max-height: 840px
-  background: url(/assets/iphone-screen.png) no-repeat
-  background-size: contain
-  background-position: 50% 50%
+  bottom: 0
+  background-repeat: no-repeat
+  background-size: 80%
+  background-position: 50% 0
 
-.device-bg
+.device-foreground-list-wrapper
+  position: absolute
+  overflow: hidden
+  white-space: nowrap
+  margin: 0 16%
+  top: 29%
+  left: 2px
+  right: 0
+  bottom: 0
+
+.device-foreground-list
+  +transition(left 0.5s $easeInOutCubic)
+  position: absolute
+  left: 0
+  width: 400%
+  height: 100%
+
+  &.is-selected-2
+    left: -100%
+
+  &.is-selected-3
+    left: -200%
+
+  &.is-selected-4
+    left: -300%
+
+.device-foreground
+  display: block
+  float: left
+  width: 25%
+  height: 100%
+  background-repeat: no-repeat
+  background-size: cover
+
+.background,
+.device-background
   position: absolute
   top: 0
   left: 0
   width: 100%
   height: 100%
-  background: url(/assets/blur-bg-blurred.jpg) no-repeat
+  background-repeat: no-repeat
   background-position: 50% 50%
-  background-clip: content-box
-  padding: 10% 37.5% 0
+  background-size: cover
 
-  .is-scaled &
-    background-size: cover
+.fading-bg-list > li
+  +transition(opacity 0.75s $easeInOutSine)
+  +prefix-property(opacity, 0)
+
+  &.is-selected
+    +prefix-property(opacity, 1)
+
+.device-background
+  background-clip: content-box
+  padding: 26% 16% 0
+
+@media screen and (min-width: 488px)
+  .device,
+  .device-foreground
+    background-size: initial
+
+  .device-background-list
+    +prefix-property(box-sizing, content-box)
+    position: absolute
+    top: 0
+    left: 50%
+    width: 332px
+    height: 100%
+    margin-left: -166px
+
+  .device-background
+    padding: 138px 0 0 0
+
+  .device-foreground-list-wrapper
+    top: 138px
+    width: 332px
+    margin-left: auto
+    margin-right: auto
+
+  .device-list
+    top: 16px
+
+@media screen and (min-width: 710px)
+  .hero-section
+    height: 710px
+    padding-bottom: 0
