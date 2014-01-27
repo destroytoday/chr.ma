@@ -1,47 +1,62 @@
 {% capture content %}
-<section id='hero' class='hero-section'>
-  <ul class='fading-bg-list background-list list'>
-  {% for slide in pages.hero.pages %}
-    <li class='background{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.background }});'></li>
-  {% endfor %}
-  </ul>
-
-  <ul class='fading-bg-list device-background-list list'>
-  {% for slide in pages.hero.pages %}
-    <li class='device-background{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.device-background }});'></li>
-  {% endfor %}
-  </ul>
-
-  <div class='device-foreground-list-wrapper'>
-    <ul class='device-foreground-list list'>
+<div id='hero'>
+  <section class='hero-image-section'>
+    <ul class='fading-bg-list background-list list'>
     {% for slide in pages.hero.pages %}
-      <li class='device-foreground{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.device-foreground }});'></li>
+      <li class='background{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.background }});'></li>
     {% endfor %}
     </ul>
-  </div>
 
-  <ul class='device-list list'>
-  {% for slide in pages.hero.pages %}
-    <li class='device{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.device }}); z-index: {{ forloop.index }};'></li>
-  {% endfor %}
+    <ul class='fading-bg-list device-background-list list'>
+    {% for slide in pages.hero.pages %}
+      <li class='device-background{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.device-background }});'></li>
+    {% endfor %}
+    </ul>
+
+    <div class='device-foreground-list-wrapper'>
+      <ul class='device-foreground-list list'>
+      {% for slide in pages.hero.pages %}
+        <li class='device-foreground{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.device-foreground }});'></li>
+      {% endfor %}
+      </ul>
+    </div>
+
+    <ul class='device-list list'>
+    {% for slide in pages.hero.pages %}
+      <li class='device{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.device }}); z-index: {{ forloop.index }};'></li>
+    {% endfor %}
+    </ul>
+
+    <div class='hero-shadow'></div>
+  </section>
+
+  <ul class='carousel-list list'>
+    {% for slide in pages.hero.pages %}
+    <li class='carousel-list-item{% if forloop.first %} is-selected{% endif %}' data-n='{{ forloop.index }}'>
+      <a class='carousel-list-dot' href='#'></a>
+    </li>
+    {% endfor %}
   </ul>
-
-  <div class='hero-shadow'></div>
-</section>
+</div>
 
 <script>
   var doc = document;
   var deviceForegroundList = doc.querySelector('.device-foreground-list');
   var index = 1;
   var selectedItem;
+  var carouselLoop;
 
-  setInterval(function(){
+  var tickCarousel = function() {
     if (index < 3) {
       index++;
     } else {
       index = 1;
     }
 
+    updateCarousel();
+  };
+
+  var updateCarousel = function () {
     [].forEach.call(doc.querySelectorAll('.list'), function (list) {
       selectedItem = list.querySelector('li.is-selected');
       selectedItem.className = selectedItem.className.replace(' is-selected', '');
@@ -51,7 +66,33 @@
     });
 
     deviceForegroundList.className = 'device-foreground-list list is-selected-' + index;
-  }, 3000);
+  };
+
+  var startCarouselLoop = function() {
+    carouselLoop = setInterval(tickCarousel, 3000);
+  };
+
+  var stopCarouselLoop = function() {
+    clearInterval(carouselLoop);
+  };
+
+  var gotoCarouselIndex = function(n) {
+    index = n;
+
+    stopCarouselLoop();
+    updateCarousel();
+    startCarouselLoop();
+  };
+
+  startCarouselLoop();
+
+  [].forEach.call(doc.getElementsByClassName('carousel-list-item'), function (item) {
+    item.getElementsByClassName('carousel-list-dot')[0].onclick = function (e) {
+      e.preventDefault();
+
+      gotoCarouselIndex(item.getAttribute('data-n'));
+    };
+  });
 </script>
 
 {% endcapture %}

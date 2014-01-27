@@ -6,6 +6,8 @@
 $base-font: "Helvetica Neue", Helvetica, sans-serif
 $header-font: "futura-pt", "Helvetica Neue", Helvetica, sans-serif
 
+$line-grey: #5a5a5a
+
 $fill-darkest-grey: #1d1d1d
 $fill-dark-grey: #3a3a3a
 $fill-grey: #666666
@@ -87,7 +89,7 @@ a
     text-align: center
     text-transform: uppercase
 
-.hero-section
+.hero-image-section
   position: relative
   overflow: hidden
   height: 0
@@ -188,6 +190,41 @@ a
   background-clip: content-box
   padding: 26% 16% 0
 
+.carousel-list
+  +clearfix
+  position: relative
+  float: left
+  left: 50%
+  margin: 1.625em 0
+
+.carousel-list-item
+  position: relative
+  float: left
+  right: 50%
+
+.carousel-list-dot
+  +prefix-property(border-radius, 0.5em)
+  display: block
+  margin: 0 0.4375em
+  padding: 0.25em
+  width: 1em
+  height: 1em
+  background-clip: content-box
+
+  .is-selected &
+    background-color: $fill-grey
+
+  &:before
+    +prefix-property(border-radius, 0.5em)
+    position: relative
+    display: block
+    top: -0.25em
+    left: -0.25em
+    width: 0.75em
+    height: 0.75em
+    content: ''
+    border: solid 2px $line-grey
+
 @media screen and (min-width: 488px)
   .main-header
     .logo
@@ -256,6 +293,6 @@ a
     height: 100%
     margin: 0 auto
 
-  .hero-section
+  .hero-image-section
     height: 710px
     padding-bottom: 0
