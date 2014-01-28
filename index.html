@@ -1,5 +1,5 @@
 {% capture content %}
-<div id='hero'>
+<div id='hero' class='hero'>
   <section class='hero-image-section'>
     <ul class='fading-bg-list background-list list'>
     {% for slide in pages.hero.pages %}
@@ -38,6 +38,14 @@
     {% endfor %}
   </ul>
 </div>
+
+{% for section in pages %}
+{% unless section.slug == 'hero' %}
+<section class='{{ section.slug }}-section section'>
+  <h3 class='section-title'>{{ section.title }}</h3>
+</section>
+{% endunless %}
+{% endfor %}
 
 <script>
   var doc = document;
@@ -84,8 +92,6 @@
     startCarouselLoop();
   };
 
-  startCarouselLoop();
-
   [].forEach.call(doc.getElementsByClassName('carousel-list-item'), function (item) {
     item.getElementsByClassName('carousel-list-dot')[0].onclick = function (e) {
       e.preventDefault();
@@ -93,6 +99,8 @@
       gotoCarouselIndex(item.getAttribute('data-n'));
     };
   });
+
+  // startCarouselLoop();
 </script>
 
 {% endcapture %}

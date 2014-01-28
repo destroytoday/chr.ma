@@ -6,6 +6,7 @@
 $base-font: "Helvetica Neue", Helvetica, sans-serif
 $header-font: "futura-pt", "Helvetica Neue", Helvetica, sans-serif
 
+$line-dark-grey: #3a3a3a
 $line-grey: #5a5a5a
 
 $fill-darkest-grey: #1d1d1d
@@ -88,6 +89,9 @@ a
     font-weight: 300
     text-align: center
     text-transform: uppercase
+
+.hero
+  +clearfix
 
 .hero-image-section
   position: relative
@@ -218,12 +222,32 @@ a
     +prefix-property(border-radius, 0.5em)
     position: relative
     display: block
-    top: -0.25em
-    left: -0.25em
+    top: -0.1875em
+    left: -0.1875em
     width: 0.75em
     height: 0.75em
     content: ''
-    border: solid 2px $line-grey
+    border: solid 1px $line-grey
+
+// sections
+
+.section-title
+  +prefix-property(border-radius, 1.75em)
+
+  display: block
+  width: 12em
+  margin-left: auto
+  margin-right: auto
+
+  border: solid 1px $line-dark-grey
+  font-family: $header-font
+  font-size: 1.25em
+  font-weight: 300
+  text-transform: uppercase
+  text-align: center
+  color: $text-grey
+
+//
 
 @media screen and (min-width: 488px)
   .main-header
@@ -273,6 +297,7 @@ a
 
   .device-list
     top: 16px
+
 
 @media screen and (min-width: 710px)
   .main-header
