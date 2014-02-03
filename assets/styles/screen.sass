@@ -3,7 +3,7 @@
 
 // variables
 
-$base-font: "Helvetica Neue", Helvetica, sans-serif
+$base-font: "proxima-nova", "Helvetica Neue", Helvetica, sans-serif
 $header-font: "futura-pt", "Helvetica Neue", Helvetica, sans-serif
 
 $line-dark-grey: #3a3a3a
@@ -231,6 +231,9 @@ a
 
 // sections
 
+.main-section
+  margin: 10em 0
+
 .section-title
   +prefix-property(border-radius, 1.75em)
 
@@ -246,6 +249,71 @@ a
   text-transform: uppercase
   text-align: center
   color: $text-grey
+
+.section-headline
+  margin-bottom: 0
+
+  font-size: 2.25em
+  font-weight: 300
+  text-align: center
+
+.section-copy
+  text-align: center
+
+// figures
+
+.fig-device-wrapper
+  position: relative
+  overflow: hidden
+  margin-top: 3em
+  width: 100%
+  height: 600px
+  margin-top: 3em
+
+.fig-device
+  position: relative
+  z-index: 1
+  background: url(/assets/figures-device.png) no-repeat 50% 0
+  background-size: contain
+  width: 100%
+  height: 100%
+
+.fig-blurred-ang-list
+  position: absolute
+  left: 50%
+  top: 50%
+  margin-left: -5.625em
+  margin-top: -5.625em
+  width: 236.25em
+
+  .item
+    float: left
+    display: block
+
+    width: 11.25em
+    height: 11.25em
+
+    background-repeat: no-repeat
+    background-size: contain
+
+.fig-ang-list
+  position: absolute
+  left: 50%
+  top: 50%
+  margin-left: -5.625em
+  margin-top: -5.625em
+  width: 236.25em
+
+  .item
+    display: none
+    position: absolute
+    left: 0
+    top: 0
+    width: 11.25em
+    height: 11.25em
+
+    background-repeat: no-repeat
+    background-size: contain
 
 //
 
