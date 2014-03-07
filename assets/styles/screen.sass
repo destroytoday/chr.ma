@@ -1,5 +1,8 @@
 @import '_normalize'
 @import '_mixins'
+@import 'bourbon/bourbon'
+@import 'grid-settings'
+@import 'neat/neat'
 
 // variables
 
@@ -8,14 +11,24 @@ $header-font: "futura-pt", "Helvetica Neue", Helvetica, sans-serif
 
 $line-dark-grey: #3a3a3a
 $line-grey: #5a5a5a
+$line-white: #fff
 
-$fill-darkest-grey: #1d1d1d
+$fill-white: #fff
+$fill-darkest-grey: #131313
+$fill-darker-grey: #1d1d1d
 $fill-dark-grey: #3a3a3a
 $fill-grey: #666666
+$fill-green: #08B58E
+$fill-green-hover: #09DDAD
 
+$text-darkest-grey: #3A3A3A
 $text-grey: #878787
 $text-light-grey: #c1c1c1
-$text-lightest-grey: #fff
+$text-white: #fff
+
+$tablet-narrow: 480px
+$tablet-wide: 768px
+$desktop: 1024px
 
 // reset
 
@@ -24,11 +37,14 @@ $text-lightest-grey: #fff
     -webkit-text-size-adjust: 100%
     -ms-text-size-adjust: 100%
 
-*
+*,
+*:before,
+*:after
   +prefix-property(box-sizing, border-box)
 
 ul
   padding: 0
+  margin: 0
 
 li
   list-style-type: none
@@ -36,7 +52,7 @@ li
 // base
 
 html, body
-  background-color: $fill-darkest-grey
+  background-color: $fill-darker-grey
   color: $text-light-grey
 
 body
@@ -52,6 +68,58 @@ a
 
 .wf-loading .webfont
   visibility: hidden
+
+// components
+
+.signup-form
+  font-size: rem(16)
+
+  +min-width($tablet-narrow)
+    font-size: rem(20)
+
+.field
+  +prefix-property(border-radius, 0)
+  +prefix-property(appearance, none)
+  float: left
+  width: 100%
+  height: em(56)
+  padding: 1em
+  margin: 0 em(-72) 0 0
+  border: none
+  outline: none
+  background: $fill-white
+  font-size: em(16)
+
+.button
+  +prefix-property(border-radius, 0)
+  float: right
+  padding: 0
+  margin: 0
+  width: em(72)
+  height: em(56)
+  border: none
+  outline: none
+  background: url(/assets/images/check.png) no-repeat
+  background-position: center center
+  background-size: em(32) em(32)
+  background-color: $fill-green
+  text-indent: -9999px
+  color: $text-white
+
+  &:hover
+    background-color: $fill-green-hover
+
+input::-webkit-input-placeholder
+  color: $text-light-grey
+
+input:-moz-placeholder
+  color: $text-light-grey
+
+input::-moz-placeholder
+  color: $text-light-grey
+
+input:-ms-input-placeholder
+  color: $text-light-grey
 
 // header
 
@@ -93,6 +161,86 @@ a
 .hero
   +clearfix
 
+  .device-list
+    position: absolute
+    width: 100%
+    height: 100%
+    top: 10%
+
+    > li
+      +transition(opacity 0.75s $easeInOutSine)
+      +prefix-property(opacity, 0)
+
+      &:first-child,
+      &.is-selected
+        +prefix-property(opacity, 1)
+
+  .device
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background-repeat: no-repeat
+    background-size: 80%
+    background-position: 50% 0
+
+  .device-foreground-list-wrapper
+    position: absolute
+    overflow: hidden
+    white-space: nowrap
+    margin: 0 16%
+    top: 34%
+    left: 2px
+    right: 0
+    bottom: 0
+
+  .device-foreground-list
+    +transition(left 0.5s $easeInOutCubic)
+    position: absolute
+    left: 0
+    width: 400%
+    height: 100%
+
+    &.is-selected-2
+      left: -100%
+
+    &.is-selected-3
+      left: -200%
+
+    &.is-selected-4
+      left: -300%
+
+  .device-foreground
+    display: block
+    float: left
+    width: 25%
+    height: 100%
+    background-repeat: no-repeat
+    background-size: cover
+
+  .background,
+  .device-background
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-repeat: no-repeat
+    background-position: 50% 50%
+    background-size: cover
+
+  .fading-bg-list > li
+    +transition(opacity 0.75s $easeInOutSine)
+    +prefix-property(opacity, 0)
+
+    &.is-selected
+      +prefix-property(opacity, 1)
+
+  .device-background
+    background-clip: content-box
+    padding: 26% 16% 0
+
 .hero-image-section
   position: relative
   overflow: hidden
@@ -113,86 +261,6 @@ a
   background: url(/assets/hero-shadow.png) repeat-x
   background-position: 0 100%
   background-size: 100% 25%
-
-.device-list
-  position: absolute
-  width: 100%
-  height: 100%
-  top: 10%
-
-  > li
-    +transition(opacity 0.75s $easeInOutSine)
-    +prefix-property(opacity, 0)
-
-    &:first-child,
-    &.is-selected
-      +prefix-property(opacity, 1)
-
-.device
-  position: absolute
-  top: 0
-  left: 0
-  right: 0
-  bottom: 0
-  background-repeat: no-repeat
-  background-size: 80%
-  background-position: 50% 0
-
-.device-foreground-list-wrapper
-  position: absolute
-  overflow: hidden
-  white-space: nowrap
-  margin: 0 16%
-  top: 34%
-  left: 2px
-  right: 0
-  bottom: 0
-
-.device-foreground-list
-  +transition(left 0.5s $easeInOutCubic)
-  position: absolute
-  left: 0
-  width: 400%
-  height: 100%
-
-  &.is-selected-2
-    left: -100%
-
-  &.is-selected-3
-    left: -200%
-
-  &.is-selected-4
-    left: -300%
-
-.device-foreground
-  display: block
-  float: left
-  width: 25%
-  height: 100%
-  background-repeat: no-repeat
-  background-size: cover
-
-.background,
-.device-background
-  position: absolute
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  background-repeat: no-repeat
-  background-position: 50% 50%
-  background-size: cover
-
-.fading-bg-list > li
-  +transition(opacity 0.75s $easeInOutSine)
-  +prefix-property(opacity, 0)
-
-  &.is-selected
-    +prefix-property(opacity, 1)
-
-.device-background
-  background-clip: content-box
-  padding: 26% 16% 0
 
 .carousel-list
   +clearfix
@@ -222,98 +290,356 @@ a
     +prefix-property(border-radius, 0.5em)
     position: relative
     display: block
-    top: -0.1875em
-    left: -0.1875em
-    width: 0.75em
-    height: 0.75em
+    top: em(-3)
+    left: em(-3)
+    width: em(14)
+    height: em(14)
     content: ''
     border: solid 1px $line-grey
 
 // sections
 
-.main-section
-  margin: 10em 0
+.section
+  +clearfix
+  position: relative
+  margin: em(20) 0
+
+  +min-width($tablet-narrow)
+    font-size: 150%
+
+  +min-width($tablet-wide)
+    font-size: 200%
+
+  +min-width($desktop)
+    font-size: 250%
+
+.labelled-section
+  position: relative
+  margin: em(-60) 0 0 0
+  padding-top: rem(120)
+  background: url(/assets/images/frame.svg) no-repeat
+  background-position: center top
+
+  +min-width($tablet-narrow)
+    margin-top: 0
+    padding-top: rem(100)
+
+  .section-title
+    margin-bottom: em(100)
+
+  // &:before
+  //   display: block
+  //   position: absolute
+  //   z-index: 3
+  //   top: rem(14)
+  //   left: 0
+  //   width: 100%
+  //   bottom: 0
+  //   border-top: solid 1px $line-dark-grey
+  //   content: ''
+
+  //   +min-width($tablet-narrow)
+  //     top: rem(16)
+
+  //   +min-width(rem(900))
+  //     +prefix-property(border-radius, rem(36))
+  //     left: rem(40)
+  //     right: rem(40)
+  //     width: auto
+  //     border: solid 1px $line-dark-grey
+
+  //   +min-width(rem(1124))
+  //     left: 50%
+  //     right: auto
+  //     width: 100%
+  //     max-width: rem(1024)
+  //     margin-left: rem(-1024/2)
+
+.background-section
+  background: $fill-darkest-grey
+  background-repeat: no-repeat
+  // background-position: center center
+  // background-size: cover
+
+.about-section
+  margin: em(20) 0
+
+  .section-headline
+    margin-top: 0
+
+  +min-width($tablet-narrow)
+    font-size: 150%
+
+    .section-headline
+      font-size: rem(36)
+
+  +min-width($tablet-wide)
+    font-size: 200%
+
+    .section-headline
+      font-size: rem(46)
+
+  +min-width($desktop)
+    font-size: 250%
+
+    .section-headline
+      font-size: rem(56)
 
 .section-title
   +prefix-property(border-radius, 1.75em)
 
+  position: relative
   display: block
-  width: 12em
+  z-index: 3
+  width: em(180)
   margin-left: auto
   margin-right: auto
 
   border: solid 1px $line-dark-grey
   font-family: $header-font
-  font-size: 1.25em
+  font-size: rem(16)
   font-weight: 300
   text-transform: uppercase
   text-align: center
   color: $text-grey
+  background-color: $fill-darker-grey
+
+  +min-width($tablet-narrow)
+    font-size: rem(20)
 
 .section-headline
-  margin-bottom: 0
+  position: relative
+  z-index: 2
+  margin: em(30, 24) em(10, 24) em(10, 24)
 
-  font-size: 2.25em
+  font-size: rem(24)
   font-weight: 300
   text-align: center
+  color: $text-white
+
+  +min-width($tablet-wide)
+    font-size: rem(32)
+
+.copy
+  max-width: 38em
+  margin: 0 em(10)
+  font-size: rem(16)
+
+  &.center
+    text-align: center
+
+  +min-width($tablet-narrow)
+    margin-left: em(20)
+    margin-right: em(20)
+
+  +min-width($tablet-wide)
+    margin-left: auto
+    margin-right: auto
 
 .section-copy
+  position: relative
+  z-index: 2
+
+  +min-width($tablet-narrow)
+    font-size: rem(20)
+
+  +min-width($tablet-wide)
+    padding-left: em(20)
+    padding-right: em(20)
+
+  +min-width($desktop)
+    font-size: rem(24)
+    font-weight: 300
+
+.subsection
+  margin: em(40) 0
+  font-size: rem(16)
+
+.subsection-copy
+  font-size: rem(16)
+
+  +min-width($desktop)
+    font-size: rem(18)
+
+.subsection-headline
+  margin: em(20, 20) 0
+
+  font-size: rem(20)
+  font-weight: 400
   text-align: center
+  color: $text-white
+
+  +min-width($tablet-wide)
+    font-size: rem(22)
+    margin-bottom: 0
+
+// signup
+
+.signup-section
+  position: relative
+  z-index: 1
+  padding: em(30) 0 0 0
+
+  .section-headline
+    margin-top: 0
+
+  .section-copy
+    margin-bottom: em(30)
+
+  +min-width($tablet-narrow)
+    padding: em(40) 0
+
+.signup-form
+  max-width: rem(480)
+  margin: 0 auto
 
 // figures
 
-.fig-device-wrapper
-  position: relative
-  overflow: hidden
-  margin-top: 3em
-  width: 100%
-  height: 600px
-  margin-top: 3em
+.fig-section
+  .device
+    overflow: hidden
 
-.fig-device
-  position: relative
-  z-index: 1
-  background: url(/assets/figures-device.png) no-repeat 50% 0
-  background-size: contain
-  width: 100%
-  height: 100%
+  .figures
+    $width: em(800)
+    position: relative
+    left: 50%
+    width: $width
+    height: em(80)
+    margin-left: -$width/2
+    background: url(/assets/images/figures-mobile.jpg) no-repeat center center
+    background-size: contain
 
-.fig-blurred-ang-list
-  position: absolute
-  left: 50%
-  top: 50%
-  margin-left: -5.625em
-  margin-top: -5.625em
-  width: 236.25em
+  +min-width($desktop)
+    overflow: hidden
 
-  .item
+    .device
+      position: relative
+      z-index: 1
+      width: rem(384)
+      height: rem(500)
+      margin: 0 auto
+      background: url(/assets/images/figures-device.jpg) no-repeat
+      background-size: contain
+
+    .figures-wrapper
+      overflow: hidden
+      width: rem(320)
+      height: rem(180)
+      margin: rem(200) auto 0
+
+    .figures
+      position: relative
+      left: rem(140/2)
+      width: rem(2445)
+      height: rem(180)
+      margin-left: 0
+      background: url(/assets/images/figures-wide.jpg) no-repeat
+      background-position: left top
+      background-size: contain
+
+    .figures-blurred
+      position: absolute
+      top: rem(480)
+      left: 50%
+
+      &:before
+        display: block
+        position: relative
+        left: rem(-180/2)
+        width: rem(2445)
+        height: rem(180)
+        background: url(/assets/images/figures-blurred-wide.jpg) no-repeat
+        background-size: contain
+        content: ''
+
+// tags
+
+.tags-section
+  .subsection
+    max-width: rem(300)
+    margin-left: auto
+    margin-right: auto
+    text-align: center
+
+  .subsection-icon
+    font-size: rem(72)
+    color: $text-white
+
+  +media($tablet-landscape)
+    .section-content
+      +outer-container
+      padding: 0 $gutter
+
+    .subsection
+      max-width: auto
+      +span-columns(4)
+
+// streams
+
+.streams-section
+  .icon-list
+    +clearfix
+
+  .icon-item
     float: left
-    display: block
+    margin-left: em(20, 32)
+    margin-top: em(10, 32)
 
-    width: 11.25em
-    height: 11.25em
+    font-size: rem(32)
+    color: $text-darkest-grey
 
+    &:first-child
+      margin-left: 0
+
+  .device
+    height: 0
+    margin-top: em(40)
+    padding-bottom: 29.375%
+    background-image: url(/assets/images/streams.jpg)
     background-repeat: no-repeat
     background-size: contain
 
-.fig-ang-list
-  position: absolute
-  left: 50%
-  top: 50%
-  margin-left: -5.625em
-  margin-top: -5.625em
-  width: 236.25em
+  +media($tablet-portrait)
+    .section-content
+      +outer-container
+      margin-top: em(60, 24)
+      padding-right: $gutter
 
-  .item
-    display: none
-    position: absolute
-    left: 0
-    top: 0
-    width: 11.25em
-    height: 11.25em
+    .device
+      +span-columns(3)
+      margin-top: 0
+      height: em(350)
+      padding-bottom: 0
+      background-image: url(/assets/images/streams-device.jpg)
+      background-position: right center
+      background-size: cover
 
-    background-repeat: no-repeat
-    background-size: contain
+    .subsections-wrapper
+      +span-columns(5)
+
+    .subsection-headline
+      text-align: left
+
+    .copy
+      margin-left: 0
+      margin-right: 0
+
+  +media($mini-tablet-portrait)
+    .section-content
+      margin-top: em(40, 24)
+      padding-left: $gutter
+
+    .device
+      +span-columns(4)
+      background-size: contain
+
+    .subsections-wrapper
+      +span-columns(4)
+
+  +media($tablet-landscape)
+    .device
+      height: em(300)
+      background-position: center center
 
 //
 
@@ -341,30 +667,31 @@ a
       font-size: 1em
       text-align: left
 
-  .device,
-  .device-foreground
-    background-size: initial
+  .hero
+    .device,
+    .device-foreground
+      background-size: initial
 
-  .device-background-list
-    +prefix-property(box-sizing, content-box)
-    position: absolute
-    top: 0
-    left: 50%
-    width: 332px
-    height: 100%
-    margin-left: -166px
+    .device-background-list
+      +prefix-property(box-sizing, content-box)
+      position: absolute
+      top: 0
+      left: 50%
+      width: 332px
+      height: 100%
+      margin-left: -166px
 
-  .device-background
-    padding: 138px 0 0 0
+    .device-background
+      padding: 138px 0 0 0
 
-  .device-foreground-list-wrapper
-    top: 138px
-    width: 332px
-    margin-left: auto
-    margin-right: auto
+    .device-foreground-list-wrapper
+      top: 137px
+      width: 332px
+      margin-left: auto
+      margin-right: auto
 
-  .device-list
-    top: 16px
+    .device-list
+      top: 16px
 
 
 @media screen and (min-width: 710px)
@@ -380,11 +707,12 @@ a
       left: 0
       font-size: 1.375rem
 
-  .background-list
-    position: relative
-    max-width: 1536px
-    height: 100%
-    margin: 0 auto
+  .hero
+    .background-list
+      position: relative
+      max-width: 1536px
+      height: 100%
+      margin: 0 auto
 
   .hero-image-section
     height: 710px

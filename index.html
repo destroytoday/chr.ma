@@ -2,68 +2,113 @@
   {% include 'includes/hero' %}
 
   {% assign section = pages.intro %}
-  <section class='main-section'>
+  <section class='about-section section'>
     <h4 class='section-headline'>{{ section.meta.headline }}</h4>
-    <div class='section-copy'>
+    <div class='section-copy copy'>
       {{ section.body }}
     </div>
   </section>
 
   {% assign section = pages.figures %}
-  <section id='fig-section' class='main-section'>
+  <section id='fig-section' class='labelled-section fig-section section'>
+    <h3 class='section-title'>{{ section.title }}</h3>
+    <div id='fig-device' class='device-wrapper'>
+      <div id='figures-blurred' class='figures-blurred'></div>
+      <div class='device'>
+        <div class='figures-wrapper'>
+          <div id='figures' class='figures'></div>
+        </div>
+      </div>
+    </div>
+    <h4 class='section-headline'>{{ section.meta.headline }}</h4>
+    <div class='section-copy copy'>
+      {{ section.body }}
+    </div>
+  </section>
+
+  {% assign section = pages.taxonomy %}
+  <section class='labelled-section tags-section section'>
+    <h3 class='section-title'>{{ section.title }}</h3>
+    <!-- <h4 class='section-headline'>{{ section.meta.headline }}</h4> -->
+    <div class='section-content'>
+      {% for page in section.pages %}
+      <section class='{{ page.slug }}-subsection subsection'>
+        <div class='subsection-icon ss-icon'>{{ page.meta.icon }}</div>
+        <h5 class='subsection-headline'>{{ page.meta.headline }}</h5>
+        <div class='subsection-copy copy'>
+          {{ page.body }}
+        </div>
+      </section>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% assign section = pages.streams %}
+  <section class='labelled-section streams-section section'>
     <h3 class='section-title'>{{ section.title }}</h3>
     <h4 class='section-headline'>{{ section.meta.headline }}</h4>
-    <div id='fig-device' class='fig-device-wrapper'>
-      <ul id='fig-blurred-ang-list' class='fig-blurred-ang-list'>
-      {% for n in (0..20) %}
-        <li class='item' style='background-image: url(/assets/figures-angle-{{ n }}-blurred.png)'></li>
-      {% endfor %}
-      </ul>
-      <div class='fig-device'>
-        <ul id='fig-ang-list' class='fig-ang-list'>
-        {% for n in (0..20) %}
-          <li class='item' style='background-image: url(/assets/figures-angle-{{ n }}.png)'></li>
+    <div class='section-content'>
+      <div class='device'></div>
+      <div class='subsections-wrapper'>
+        {% for page in section.pages %}
+        <section class='{{ page.slug }}-subsection subsection'>
+          <h5 class='subsection-headline'>{{ page.meta.headline }}</h5>
+          <div class='subsection-copy copy'>
+            {{ page.body }}
+          </div>
+        </section>
         {% endfor %}
-        </ul>
       </div>
     </div>
   </section>
+
+  {% include 'includes/signup' %}
   <script>
-    var $window = $(window);
-    var $figSection = $('#fig-section');
-    var $figDevice = $('#fig-device');
-    var $figBlurredAngList = $('#fig-blurred-ang-list');
-    var $figAngListItems = $('#fig-ang-list > .item');
-    var angWidth = 180;
-    var numAngles = 21;
-    var prevFrame;
+    $(document).ready(function() {
+      var $window = $(window);
+      var $figSection = $('#fig-section');
+      var $figDevice = $('#fig-device');
+      var $figures = $('#figures');
+      var $figuresBlurred = $('#figures-blurred');
+      var angWidth = 180;
+      var numAngles = 9;
+      var prevFrame;
+      var isMobile = window.innerWidth < 1024;
 
-    var figAngles_scrollHandler = function (e) {
-      var po = $figDevice.offset();
-      var scroll = ($window.scrollTop() + $window.height()) - (po.top + $figDevice.height() / 2);
-      var ratio = scroll / $window.height();
-      var adjustedRatio, nextFrame, nextOpacity;
-      var x;
+      var scrollHandler = function(e) {
+        if (!isMobile) {
+          var po = $figDevice.offset();
+          var scroll = ($window.scrollTop() + $window.height()) - (po.top + $figDevice.height() / 2);
+          var ratio = scroll / ($window.height() + $figDevice.height() / 4);
+          var adjustedRatio, nextFrame, nextOpacity;
+          var x;
 
-      if (ratio >= 0 && ratio < 1) {
-        adjustedRatio = ratio * numAngles;
+          if (ratio >= 0 && ratio < 1) {
+            adjustedRatio = ratio * numAngles;
 
-        nextFrame = Math.floor(adjustedRatio);
-        x = -(angWidth / 2 + ratio * (angWidth * (numAngles - 1)));
-        $figBlurredAngList.css('margin-left', x);
-
-        if (nextFrame != prevFrame) {
-          if (prevFrame >= 0) {
-            $figAngListItems[prevFrame].style.display = 'none';
+            nextFrame = Math.floor(adjustedRatio);
+            x = -ratio * 2445;
+            $figuresBlurred.css('margin-left', x);
+            $figures.css('margin-left', x);
           }
-
-          $figAngListItems[nextFrame].style.display = 'block';
-          prevFrame = nextFrame;
         }
-      }
-    };
+      };
 
-    $(document).on('scroll', figAngles_scrollHandler);
+      var resizeHandler = function(e) {
+        if (window.innerWidth >= 1024 && isMobile) {
+          isMobile = false;
+        } else if (window.innerWidth < 1024 && !isMobile) {
+          isMobile = true;
+          $figuresBlurred.css('margin-left', null);
+          $figures.css('margin-left', null);
+        }
+
+        scrollHandler();
+      };
+
+      $(document).on('scroll', scrollHandler);
+      $(window).on('resize', resizeHandler);
+    });
   </script>
 {% endcapture %}
 
