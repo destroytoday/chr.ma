@@ -20,7 +20,8 @@
     <link href="//cdn.symbolset.com/9c63ad6f5d9d910d90ce283a4276ce82381b4495/symbolset.css" rel="stylesheet">
     <link href='/assets/styles/screen.css' rel='stylesheet'>
 
-    <script src='/assets/scripts/libs/zepto.min.js'></script>
+    <script src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js'></script>
+    <script>window.jQuery || document.write('<script src="/assets/scripts/libs/jquery-1.11.0.min.js">\x3C/script>')</script>
 
     {% include 'includes/fonts' %}
     {% include 'includes/analytics' %}
@@ -32,7 +33,7 @@
         <a class='logo'></a>
         <a class='logotype'>Chroma</a>
       </h1>
-      <!-- <h2 class='tagline webfont'>{{ site.meta.tagline }}</h2> -->
+      <h2 class='tagline webfont'>{{ site.meta.tagline }}</h2>
     </header>
 
     {{ content }}

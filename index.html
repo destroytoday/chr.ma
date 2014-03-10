@@ -26,14 +26,13 @@
     </div>
   </section>
 
-  {% assign section = pages.taxonomy %}
-  <section class='labelled-section tags-section section'>
+  {% assign section = pages.fields %}
+  <section class='labelled-section fields-section section'>
     <h3 class='section-title'>{{ section.title }}</h3>
-    <!-- <h4 class='section-headline'>{{ section.meta.headline }}</h4> -->
     <div class='section-content'>
       {% for page in section.pages %}
       <section class='{{ page.slug }}-subsection subsection'>
-        <div class='subsection-icon ss-icon'>{{ page.meta.icon }}</div>
+        <div class='subsection-icon' style='background-image: url(/assets/images/fields-{{ page.slug }}-icon.svg)'></div>
         <h5 class='subsection-headline'>{{ page.meta.headline }}</h5>
         <div class='subsection-copy copy'>
           {{ page.body }}
@@ -62,6 +61,18 @@
     </div>
   </section>
 
+  {% assign section = pages.maps %}
+  <section class='{{ section.slug }}-section section'>
+    <h3 class='section-title'>{{ section.title }}</h3>
+    <h4 class='section-headline'>{{ section.meta.headline }}</h4>
+    <div class='section-copy copy'>
+      {{ section.body }}
+    </div>
+    <div class='section-content'>
+      <div class='device'></div>
+    </div>
+  </section>
+
   {% include 'includes/signup' %}
   <script>
     $(document).ready(function() {
@@ -75,7 +86,14 @@
       var prevFrame;
       var isMobile = window.innerWidth < 1024;
 
+      var ease = function (t, b, c, d) {
+        if ((t/=d/2) < 1) return c/2*t*t*t + b;
+        return c/2*((t-=2)*t*t + 2) + b;
+      };
+
       var scrollHandler = function(e) {
+        var sx, ex;
+
         if (!isMobile) {
           var po = $figDevice.offset();
           var scroll = ($window.scrollTop() + $window.height()) - (po.top + $figDevice.height() / 2);
@@ -84,12 +102,16 @@
           var x;
 
           if (ratio >= 0 && ratio < 1) {
-            adjustedRatio = ratio * numAngles;
+            // x = -ratio * 2445;
 
-            nextFrame = Math.floor(adjustedRatio);
-            x = -ratio * 2445;
-            $figuresBlurred.css('margin-left', x);
-            $figures.css('margin-left', x);
+            sx = (Math.floor(ratio * numAngles)/numAngles) * -2547
+            ex = (Math.ceil(ratio * numAngles)/numAngles) * -2547
+
+            adjustedRatio = ratio * numAngles - Math.floor(ratio * numAngles);
+            x = ease(adjustedRatio, sx, (ex - sx) * adjustedRatio, 1);
+
+            $figuresBlurred.css('transform', 'translateX(' + x + 'px)');
+            $figures.css('transform', 'translateX(' + x + 'px)');
           }
         }
       };
@@ -99,8 +121,8 @@
           isMobile = false;
         } else if (window.innerWidth < 1024 && !isMobile) {
           isMobile = true;
-          $figuresBlurred.css('margin-left', null);
-          $figures.css('margin-left', null);
+          $figuresBlurred.css('transform', 'translateX(0)');
+          $figures.css('transform', 'translateX(0)');
         }
 
         scrollHandler();
