@@ -12,6 +12,8 @@
   {% assign section = pages.figures %}
   <section id='fig-section' class='labelled-section fig-section section'>
     <h3 class='section-title'>{{ section.title }}</h3>
+    <h4 class='section-headline'>{{ section.meta.headline }}</h4>
+    <h5 class='section-tagline'>{{ section.meta.tagline }}</h5>
     <div id='fig-device' class='device-wrapper'>
       <div id='figures-blurred' class='figures-blurred'></div>
       <div class='device'>
@@ -19,10 +21,6 @@
           <div id='figures' class='figures'></div>
         </div>
       </div>
-    </div>
-    <h4 class='section-headline'>{{ section.meta.headline }}</h4>
-    <div class='section-copy copy'>
-      {{ section.body }}
     </div>
   </section>
 
@@ -65,9 +63,7 @@
   <section class='{{ section.slug }}-section section'>
     <h3 class='section-title'>{{ section.title }}</h3>
     <h4 class='section-headline'>{{ section.meta.headline }}</h4>
-    <div class='section-copy copy'>
-      {{ section.body }}
-    </div>
+    <h5 class='section-tagline'>{{ section.meta.tagline }}</h5>
     <div class='section-content'>
       <div class='device'></div>
     </div>
@@ -82,7 +78,7 @@
       var $figures = $('#figures');
       var $figuresBlurred = $('#figures-blurred');
       var angWidth = 180;
-      var numAngles = 9;
+      var numAngles = 5;
       var prevFrame;
       var isMobile = window.innerWidth < 1024;
 
@@ -97,15 +93,15 @@
         if (!isMobile) {
           var po = $figDevice.offset();
           var scroll = ($window.scrollTop() + $window.height()) - (po.top + $figDevice.height() / 2);
-          var ratio = scroll / ($window.height() + $figDevice.height() / 4);
+          var ratio = scroll / ($window.height() + $figDevice.height() / 2);
           var adjustedRatio, nextFrame, nextOpacity;
           var x;
 
           if (ratio >= 0 && ratio < 1) {
             // x = -ratio * 2445;
 
-            sx = (Math.floor(ratio * numAngles)/numAngles) * -2547
-            ex = (Math.ceil(ratio * numAngles)/numAngles) * -2547
+            sx = (Math.floor(ratio * numAngles)/numAngles) * -1419;
+            ex = (Math.ceil(ratio * numAngles)/numAngles) * -1419;
 
             adjustedRatio = ratio * numAngles - Math.floor(ratio * numAngles);
             x = ease(adjustedRatio, sx, (ex - sx) * adjustedRatio, 1);

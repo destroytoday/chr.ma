@@ -28,14 +28,6 @@
 
     <div class='hero-shadow'></div>
   </section>
-
-  <ul class='carousel-list list'>
-    {% for slide in pages.hero.pages %}
-    <li class='carousel-list-item{% if forloop.first %} is-selected{% endif %}' data-n='{{ forloop.index }}'>
-      <a class='carousel-list-dot' href='#'></a>
-    </li>
-    {% endfor %}
-  </ul>
 </div>
 
 <script>
@@ -83,13 +75,5 @@
     startCarouselLoop();
   };
 
-  [].forEach.call(doc.getElementsByClassName('carousel-list-item'), function (item) {
-    item.getElementsByClassName('carousel-list-dot')[0].onclick = function (e) {
-      e.preventDefault();
-
-      gotoCarouselIndex(item.getAttribute('data-n'));
-    };
-  });
-
-  // startCarouselLoop();
+  startCarouselLoop();
 </script>

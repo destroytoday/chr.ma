@@ -54,6 +54,7 @@ li
 html, body
   background-color: $fill-darker-grey
   color: $text-light-grey
+  overflow-x: hidden
 
 body
   font: 400 100%/1.65 $base-font
@@ -63,6 +64,9 @@ img
   max-width: 100%
 
 a
+  color: $text-white
+  text-decoration: none
+
   img
     vertical-align: top
 
@@ -161,6 +165,14 @@ input:-ms-input-placeholder
     +media($tablet-landscape)
       display: none
 
+// footer
+
+.main-footer
+  padding: em(20) em(10)
+  text-align: center
+
+// hero
+
 .hero
   +clearfix
 
@@ -172,11 +184,11 @@ input:-ms-input-placeholder
 
     > li
       +transition(opacity 0.75s $easeInOutSine)
-      +prefix-property(opacity, 0)
+      opacity: 0
 
       &:first-child,
       &.is-selected
-        +prefix-property(opacity, 1)
+        opacity: 1
 
   .device
     position: absolute
@@ -194,7 +206,7 @@ input:-ms-input-placeholder
     white-space: nowrap
     margin: 0 16%
     top: 34%
-    left: 2px
+    left: 3px
     right: 0
     bottom: 0
 
@@ -204,6 +216,8 @@ input:-ms-input-placeholder
     left: 0
     width: 400%
     height: 100%
+
+    background-color: rgba(0, 0, 0, 0.8)
 
     &.is-selected-2
       left: -100%
@@ -235,10 +249,10 @@ input:-ms-input-placeholder
 
   .fading-bg-list > li
     +transition(opacity 0.75s $easeInOutSine)
-    +prefix-property(opacity, 0)
+    opacity: 0
 
     &.is-selected
-      +prefix-property(opacity, 1)
+      opacity: 1
 
   .device-background
     background-clip: content-box
@@ -365,11 +379,12 @@ input:-ms-input-placeholder
   // background-size: cover
 
 .about-section
+  z-index: 4
+
   +outer-container
   margin-top: 0
   margin-bottom: em(20)
   padding-top: em(40)
-  border-top: solid 1px $line-dark-grey
 
   .section-headline
     margin-top: 0
@@ -427,10 +442,22 @@ input:-ms-input-placeholder
   +min-width($tablet-wide)
     font-size: rem(32)
 
+.section-tagline
+  margin-top: 0
+  margin-left: em(10, 16)
+  margin-right: em(10, 16)
+  font-size: rem(16)
+  font-weight: 300
+  text-align: center
+
+  +media($desktop)
+    font-size: rem(20)
+
 .copy
   max-width: 38em
   margin: 0 em(10)
   font-size: rem(16)
+  font-weight: 300
 
   &.center
     text-align: center
@@ -469,7 +496,7 @@ input:-ms-input-placeholder
     font-size: rem(18)
 
 .subsection-headline
-  margin: em(20, 20) 0
+  margin: em(20, 20) 0 0
 
   font-size: rem(20)
   font-weight: 400
@@ -486,6 +513,7 @@ input:-ms-input-placeholder
   position: relative
   z-index: 1
   margin-top: 0
+  margin-bottom: 0
   padding: em(30) 0 0 0
 
   .section-headline
@@ -504,6 +532,17 @@ input:-ms-input-placeholder
 // figures
 
 .fig-section
+  z-index: 3
+
+  .device-wrapper
+    margin-bottom: em(40)
+
+    +media($tablet-portrait)
+      margin-top: em(40)
+
+    +media($desktop)
+      margin-top: em(30)
+
   .device
     overflow: hidden
 
@@ -544,7 +583,7 @@ input:-ms-input-placeholder
     .figures
       position: relative
       left: rem(20)
-      width: rem(2547)
+      width: rem(1419)
       height: rem(180)
       margin-left: 0
       background: url(/assets/images/figures-wide.jpg) no-repeat
@@ -560,7 +599,7 @@ input:-ms-input-placeholder
         display: block
         position: relative
         left: rem(-140)
-        width: rem(2547)
+        width: rem(1419)
         height: rem(180)
         background: url(/assets/images/figures-blurred-wide.jpg) no-repeat
         background-size: contain
@@ -569,16 +608,19 @@ input:-ms-input-placeholder
 // fields
 
 .fields-section
+  z-index: 2
+
   .subsection
     max-width: rem(300)
     margin-left: auto
     margin-right: auto
+    margin-bottom: em(60)
     text-align: center
 
   .subsection-icon
     width: 100%
     height: 0
-    padding-bottom: 100%
+    padding-bottom: 35%
 
     background-repeat: no-repeat
     background-position: center center
@@ -593,9 +635,14 @@ input:-ms-input-placeholder
       max-width: auto
       +span-columns(4)
 
+    .subsection-icon
+      padding-bottom: 45%
+
 // streams
 
 .streams-section
+  z-index: 1
+
   .icon-list
     +clearfix
     position: relative
@@ -693,6 +740,7 @@ input:-ms-input-placeholder
 // maps
 
 .maps-section
+  overflow: hidden
   padding: em(30) em(10)
   margin-top: em(50)
   margin-bottom: 0
@@ -711,22 +759,15 @@ input:-ms-input-placeholder
   .section-headline
     font-weight: 500
 
-  .section-copy
-    max-width: 38em
-    margin-left: auto
-    margin-right: auto
+  .section-tagline
+    margin: 0
     color: $text-white
-    text-align: center
-
-    p
-      margin: 0
 
   +media($tablet-portrait)
     max-height: rem(520)
 
-    .section-copy
+    .section-tagline
       margin-bottom: em(40)
-      font-size: rem(16)
 
     .device
       position: relative
@@ -757,7 +798,6 @@ input:-ms-input-placeholder
 
     .section-copy
       margin-bottom: em(50, 18)
-      font-size: rem(18)
 
     .device
       width: rem(384)
@@ -794,8 +834,7 @@ input:-ms-input-placeholder
       text-align: left
 
   .hero
-    .device,
-    .device-foreground
+    .device
       background-size: initial
 
     .device-background-list
@@ -803,7 +842,7 @@ input:-ms-input-placeholder
       position: absolute
       top: 0
       left: 50%
-      width: 332px
+      width: 333px
       height: 100%
       margin-left: -166px
 
@@ -812,7 +851,7 @@ input:-ms-input-placeholder
 
     .device-foreground-list-wrapper
       top: 137px
-      width: 332px
+      width: 334px
       margin-left: auto
       margin-right: auto
 
@@ -836,7 +875,7 @@ input:-ms-input-placeholder
   .hero
     .background-list
       position: relative
-      max-width: 1536px
+      // max-width: 1536px
       height: 100%
       margin: 0 auto
 
