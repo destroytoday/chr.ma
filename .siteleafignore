@@ -3,6 +3,8 @@ Gemfile*
 Guardfile
 LICENSE
 README.md
-styles/*.sass
-styles/*.scss
-scripts/*.coffee
+assets/styles/*.sass
+assets/styles/*.scss
+assets/bourbon
+assets/neat
+assets/scripts/*.coffee
