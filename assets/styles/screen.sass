@@ -76,10 +76,16 @@ a
 // components
 
 .signup-form
+  max-width: rem(480)
+  margin: 0 auto
+
   font-size: rem(16)
 
   +min-width($tablet-narrow)
     font-size: rem(20)
+
+  &.is-disabled
+    display: none
 
 .field
   +prefix-property(border-radius, 0)
@@ -161,9 +167,6 @@ input:-ms-input-placeholder
     font-weight: 300
     text-align: center
     text-transform: uppercase
-
-    +media($tablet-landscape)
-      display: none
 
 // footer
 
@@ -492,12 +495,21 @@ input:-ms-input-placeholder
   .section-copy
     margin-bottom: em(30)
 
+  .signup-form[disabled='disabled']
+    opacity: 0.5
+
+  &.is-submitted
+    .section-copy
+      margin-bottom: 0
+
+      p
+        margin-bottom: 0
+
+    .signup-form
+      display: none
+
   +min-width($tablet-narrow)
     padding: em(40) 0
-
-.signup-form
-  max-width: rem(480)
-  margin: 0 auto
 
 // figures
 
@@ -845,7 +857,6 @@ input:-ms-input-placeholder
   .hero
     .background-list
       position: relative
-      // max-width: 1536px
       height: 100%
       margin: 0 auto
 

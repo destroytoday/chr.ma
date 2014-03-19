@@ -1,5 +1,36 @@
 {% capture content %}
-  {% include 'includes/hero' %}
+  <div id='hero' class='hero'>
+    <section class='hero-image-section'>
+      <ul class='fading-bg-list background-list list'>
+      {% for slide in pages.hero.pages %}
+        <li class='background{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.background }});'></li>
+      {% endfor %}
+      </ul>
+
+      <ul class='fading-bg-list device-background-list list'>
+      {% for slide in pages.hero.pages %}
+        <li class='device-background{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.device-background }});'></li>
+      {% endfor %}
+      </ul>
+
+      <div class='device-foreground-list-wrapper'>
+        <ul class='device-foreground-list list'>
+        {% for slide in pages.hero.pages %}
+          <li class='device-foreground{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.device-foreground }});'></li>
+        {% endfor %}
+        </ul>
+      </div>
+
+      <ul class='device-list list'>
+      {% for slide in pages.hero.pages %}
+        <li class='device{% if forloop.first %} is-selected{% endif %}' style='background-image: url({{ slide.meta.device }}); z-index: {{ forloop.index }};'></li>
+      {% endfor %}
+      </ul>
+
+      <div class='hero-shadow'></div>
+    </section>
+  </div>
+
 
   {% assign section = pages.intro %}
   <section class='about-section section'>
@@ -70,62 +101,7 @@
   </section>
 
   {% include 'includes/signup' %}
-  <script>
-    $(document).ready(function() {
-      var $window = $(window);
-      var $figSection = $('#fig-section');
-      var $figDevice = $('#fig-device');
-      var $figures = $('#figures');
-      var $figuresBlurred = $('#figures-blurred');
-      var angWidth = 180;
-      var numAngles = 5;
-      var prevFrame;
-      var isMobile = window.innerWidth < 1024;
-
-      var ease = function (t, b, c, d) {
-        if ((t/=d/2) < 1) return c/2*t*t*t + b;
-        return c/2*((t-=2)*t*t + 2) + b;
-      };
-
-      var scrollHandler = function(e) {
-        var sx, ex;
-
-        if (!isMobile) {
-          var po = $figDevice.offset();
-          var scroll = ($window.scrollTop() + $window.height()) - (po.top + $figDevice.height() / 2);
-          var ratio = scroll / ($window.height() + $figDevice.height() / 2);
-          var adjustedRatio, nextFrame, nextOpacity;
-          var x;
-
-          if (ratio >= 0 && ratio < 1) {
-            sx = (Math.floor(ratio * numAngles)/numAngles) * -1419;
-            ex = (Math.ceil(ratio * numAngles)/numAngles) * -1419;
-
-            adjustedRatio = ratio * numAngles - Math.floor(ratio * numAngles);
-            x = ease(adjustedRatio, sx, (ex - sx) * adjustedRatio, 1);
-
-            $figuresBlurred.css('transform', 'translateX(' + x + 'px)');
-            $figures.css('transform', 'translateX(' + x + 'px)');
-          }
-        }
-      };
-
-      var resizeHandler = function(e) {
-        if (window.innerWidth >= 1024 && isMobile) {
-          isMobile = false;
-        } else if (window.innerWidth < 1024 && !isMobile) {
-          isMobile = true;
-          $figuresBlurred.css('transform', 'translateX(0)');
-          $figures.css('transform', 'translateX(0)');
-        }
-
-        scrollHandler();
-      };
-
-      $(document).on('scroll', scrollHandler);
-      $(window).on('resize', resizeHandler);
-    });
-  </script>
+  <script src='/assets/scripts/index.js'></script>
 {% endcapture %}
 
 {% include 'layouts/default' %}
