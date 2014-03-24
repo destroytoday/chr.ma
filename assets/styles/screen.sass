@@ -499,17 +499,18 @@ input:-ms-input-placeholder
     opacity: 0.5
 
   &.is-submitted
-    .section-copy
-      margin-bottom: 0
-
-      p
-        margin-bottom: 0
-
     .signup-form
       display: none
 
   +min-width($tablet-narrow)
     padding: em(40) 0
+
+    &.is-submitted
+      .section-copy
+        margin-bottom: 0
+
+        p
+          margin-bottom: 0
 
 // figures
 
