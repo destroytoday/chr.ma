@@ -75,6 +75,18 @@ a
 
 // components
 
+.app-store-button
+  display: block
+
+  width: rem(178)
+  height: rem(54)
+  margin: 0 auto
+
+  text-indent: -9999px
+
+  background: url(/assets/images/app-store-button.svg) no-repeat
+  background-size: contain
+
 .signup-form
   max-width: rem(480)
   margin: 0 auto
@@ -493,24 +505,19 @@ input:-ms-input-placeholder
     margin-top: 0
 
   .section-copy
-    margin-bottom: em(30)
+    margin-bottom: em(40)
 
   .signup-form[disabled='disabled']
     opacity: 0.5
 
-  &.is-submitted
-    .signup-form
-      display: none
-
   +min-width($tablet-narrow)
     padding: em(40) 0
 
-    &.is-submitted
-      .section-copy
-        margin-bottom: 0
+    .section-copy
+      margin-bottom: 0
 
-        p
-          margin-bottom: 0
+      p
+        margin-bottom: 0
 
 // figures
 

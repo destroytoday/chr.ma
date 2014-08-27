@@ -1,13 +1,9 @@
-{% assign section = pages.coming-soon %}
+{% assign section = pages.download %}
 {% if section %}
 <section class='signup-section background-section section'>
   <h4 class='section-headline'>{{ section.meta.headline }}</h4>
   <div class='center section-copy copy'>
     {{ section.body }}
   </div>
-  <form class='signup-form' action='/subscribe'>
-    <input class='field' type='text' name='email' placeholder='name@example.com'>
-    <input class='button' type='submit'>
-  </form>
 </section>
 {% endif %}
